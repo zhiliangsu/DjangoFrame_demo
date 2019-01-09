@@ -14,4 +14,7 @@ urlpatterns = [
 
     # 演示提取请求体表单数据
     url(r'^get_body_form/$', views.get_body_form),
+
+    # 演示提取请求体非表单(JSON)数据
+    url(r'^get_body_non_form/$', views.get_body_non_form),
 ]

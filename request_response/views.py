@@ -1,8 +1,21 @@
+import json
+
 from django.http import HttpResponse
 from django.shortcuts import render
 
 
 # Create your views here.
+
+# POST /get_body_non_form/
+def get_body_non_form(request):
+    """演示提取请求体非表单(JSON)数据"""
+    json_str_bytes = request.body
+    json_str = json_str_bytes.decode()  # python3.6可省略
+    json_dict = json.loads(json_str)
+    print(json_dict)
+
+    return HttpResponse('get_body_non_form')
+
 
 # POST /get_body_form/
 def get_body_form(request):
