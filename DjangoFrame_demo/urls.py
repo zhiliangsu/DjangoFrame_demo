@@ -13,9 +13,22 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
+
+import users.urls
+from users.views import index
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+
+    # 把子路由所有的路由信息包含到总/根路由中
+    # url(r'^users/', include('users.urls')),
+
+    # 只在总路由里定义路由信息
+    # url(r'^users/index/$', index),
+
+    # 在总路由中把子路由中的所有路由信息包含进来
+    # include函数除了可以传递字符串之外，也可以直接传递应用的urls模块
+    url(r'^', include(users.urls))
 ]
