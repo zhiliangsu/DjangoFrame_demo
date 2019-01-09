@@ -19,3 +19,13 @@ from django.shortcuts import render
 
 def index(request):
     return HttpResponse("hello world")
+
+
+# GET /say/
+def say(request):
+    return HttpResponse("say")
+
+
+# GET /say_hello/
+def say_hello(request):
+    return HttpResponse("say_hello")
