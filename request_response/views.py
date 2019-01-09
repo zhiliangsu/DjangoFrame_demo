@@ -4,6 +4,16 @@ from django.shortcuts import render
 
 # Create your views here.
 
+# GET /query_params/?a=10&b=20&a=30
+def query_params(request):
+    """演示提取查询字符串数据"""
+    queryDict = request.GET
+    print(queryDict.get('a'))
+    print(queryDict.get('b'))
+    print(queryDict.getlist('a'))
+
+    return HttpResponse('query_params')
+
 
 # GET /weather2/beijing/2018
 def weather2(request, year, city):
