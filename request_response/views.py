@@ -4,6 +4,15 @@ from django.shortcuts import render
 
 # Create your views here.
 
+
+# GET /weather2/beijing/2018
+def weather2(request, year, city):
+    """演示提取url路径参数数据: 关键字参数"""
+    print(city)
+    print(year)
+    return HttpResponse('weather2')
+
+
 # GET /weather1/beijing/2018
 def weather1(request, city, year):
     """演示提取url路径参数数据: 位置参数"""
