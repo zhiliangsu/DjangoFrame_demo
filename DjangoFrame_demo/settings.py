@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'users.apps.UsersConfig',  # 注册子应用
+    'request_response.apps.RequestResponseConfig',
 ]
 
 # 中间件的配置项(类似于Flask中的请求勾子)
