@@ -11,4 +11,7 @@ urlpatterns = [
 
     # 演示提取查询字符串
     url(r'^query_params/$', views.query_params),
+
+    # 演示提取请求体表单数据
+    url(r'^get_body_form/$', views.get_body_form),
 ]

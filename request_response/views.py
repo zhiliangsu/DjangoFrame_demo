@@ -4,6 +4,17 @@ from django.shortcuts import render
 
 # Create your views here.
 
+# POST /get_body_form/
+def get_body_form(request):
+    """演示提取请求体表单数据"""
+    queryDict = request.POST
+    print(queryDict.get('like'))
+    print(queryDict.get('b'))
+    print(queryDict.getlist('like'))
+
+    return HttpResponse('get_body_form')
+
+
 # GET /query_params/?a=10&b=20&a=30
 def query_params(request):
     """演示提取查询字符串数据"""
