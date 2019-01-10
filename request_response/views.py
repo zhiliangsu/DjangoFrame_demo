@@ -3,7 +3,16 @@ import json
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect, reverse
 
+
 # Create your views here.
+def cookie_demo(request):
+    """演示cookie操作"""
+    response = HttpResponse("cookie_demo")
+    response.set_cookie("name", "durant", 3600)  # 设置cookie的key和value都必须为字符串
+
+    print(request.COOKIES.get("name"))
+
+    return response
 
 
 def redirect_demo(request):

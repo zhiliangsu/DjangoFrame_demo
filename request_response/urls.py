@@ -19,6 +19,8 @@ urlpatterns = [
     url(r'^response_demo/$', views.response_demo),
     # 演示响应JSON数据
     url(r'^json_response_demo/$', views.json_response_demo, name='index'),
-    # 演示响应JSON数据
+    # 演示重定向及反向解析
     url(r'^redirect_demo/$', views.redirect_demo),
+    # 演示cookie读写
+    url(r'^cookie_demo/$', views.cookie_demo),
 ]
