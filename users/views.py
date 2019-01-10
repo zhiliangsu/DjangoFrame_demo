@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, reverse
 
 # Create your views here.
 
@@ -18,6 +18,8 @@ from django.shortcuts import render
 
 
 def index(request):
+    print(reverse("users:index"))
+    # / users / index /
     return HttpResponse("hello world")
 
 

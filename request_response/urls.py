@@ -17,7 +17,8 @@ urlpatterns = [
 
     # 演示响应对象基本操作
     url(r'^response_demo/$', views.response_demo),
-
     # 演示响应JSON数据
-    url(r'^json_response_demo/$', views.json_response_demo),
+    url(r'^json_response_demo/$', views.json_response_demo, name='index'),
+    # 演示响应JSON数据
+    url(r'^redirect_demo/$', views.redirect_demo),
 ]

@@ -1,10 +1,26 @@
 import json
 
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-from django.shortcuts import render
-
+from django.shortcuts import render, redirect, reverse
 
 # Create your views here.
+
+
+def redirect_demo(request):
+    # 反向解析: 通过视图找路由
+    # 正向解析: 通过路由找视图
+
+    # 如果通过路由别名去进行反向解析时,它会在工程中进行全局搜索,不是找当前子应用的
+    # 如果想要进行指定反向解析查询的范围,可以给子应用设置路由的命名空间
+
+    # print(reverse("index"))
+    # 如果给子应用加了命名空间后,反向解析的格式只能是('命名空间:路由别名')
+    # 如果没有设置命名空间时,reverse中函数可以用函数名不加引/或者直接用路由别名
+    print(reverse("request_response:index"))
+    # / json_response_demo /
+
+    return HttpResponse('redirect_demo')
+
 
 def json_response_demo(request):
     """演示响应json数据"""

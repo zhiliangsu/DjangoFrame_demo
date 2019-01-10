@@ -30,8 +30,8 @@ urlpatterns = [
 
     # 在总路由中把子路由中的所有路由信息包含进来
     # include函数除了可以传递字符串之外，也可以直接传递应用的urls模块
-    url(r'^', include(users.urls)),
+    url(r'^', include(users.urls, namespace='users')),
 
     # 演示请求和响应模块
-    url(r'^', include('request_response.urls')),
+    url(r'^', include('request_response.urls', namespace='request_response')),
 ]
