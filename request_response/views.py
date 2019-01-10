@@ -14,6 +14,10 @@ def get_body_non_form(request):
     json_dict = json.loads(json_str)
     print(json_dict)
 
+    # AnonymousUser 匿名用户 None
+    # request.user 可以获取到当前登录对象/本次请求的用户是谁
+    print(request.user)
+
     return HttpResponse('get_body_non_form')
 
 
