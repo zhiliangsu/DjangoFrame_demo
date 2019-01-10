@@ -19,7 +19,10 @@ def redirect_demo(request):
     print(reverse("request_response:index"))
     # / json_response_demo /
 
-    return HttpResponse('redirect_demo')
+    # return HttpResponse('redirect_demo')
+    # 路由最前面加 / 表示从根路由进行重定向, 如果没有加 / 表示从当前路径进行重定向
+    # return redirect('/users/index/')
+    return redirect(reverse('users:index'))
 
 
 def json_response_demo(request):
