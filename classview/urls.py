@@ -10,5 +10,8 @@ urlpatterns = [
 
     # 直接在定义路由时给as_view返回回来的函数进行装饰
     # url(r'^demoview/$', views.my_decorator(views.DemoView.as_view()))
-    url(r'^demoview/$', views.DemoView.as_view())
+    url(r'^demoview/$', views.DemoView.as_view()),
+
+    # 演示模板文件使用
+    url(r'^template_demo/$', views.template_demo),
 ]

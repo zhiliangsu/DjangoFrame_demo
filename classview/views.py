@@ -3,11 +3,20 @@ from django.views import View
 from django.http import HttpResponse
 from django.utils.decorators import method_decorator
 
+
 # Create your views here.
+def template_demo(request):
+    """演示模板使用"""
+    context = {
+        'name': 'bryant',
+        'alist': [8, 24],
+        'adict': {"team": "Lakers", "position": 'SG'}
+    }
+
+    return render(request, "index.html", context)
 
 
 def my_decorator(func_view):
-
     def wrapper(request, *args, **kwargs):
         print("被装饰了")
         return func_view(request, *args, **kwargs)
@@ -18,6 +27,7 @@ def my_decorator(func_view):
 # @method_decorator(my_decorator, name='dispatch')
 class DemoView(View):
     """类视图: 类视图中的方法名必须是请求方法名字小写"""
+
     def get(self, request):
         return HttpResponse("GET方法请求的业务逻辑")
 
