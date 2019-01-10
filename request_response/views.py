@@ -6,6 +6,17 @@ from django.shortcuts import render
 
 # Create your views here.
 
+def response_demo(request):
+    """演示响应对象的基本操作"""
+    # HttpResponse(content=响应体, content_type=响应体数据类型, status=状态码)
+    # return HttpResponse(content="hello", content_type='text/html', status=200)
+    # return HttpResponse(content="hello", content_type='text/html', status=201)
+    # return HttpResponse(content="hello", content_type='text/plain', status=300)
+    response = HttpResponse("python")
+    response['Test'] = 'how are you'  # 自定义响应头
+    return response
+
+
 # POST /get_body_non_form/
 def get_body_non_form(request):
     """演示提取请求体非表单(JSON)数据"""
