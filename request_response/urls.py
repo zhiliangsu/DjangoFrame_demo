@@ -23,4 +23,6 @@ urlpatterns = [
     url(r'^redirect_demo/$', views.redirect_demo),
     # 演示cookie读写
     url(r'^cookie_demo/$', views.cookie_demo),
+    # 演示session读写
+    url(r'^session_demo/$', views.session_demo),
 ]

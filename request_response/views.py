@@ -5,6 +5,20 @@ from django.shortcuts import render, redirect, reverse
 
 
 # Create your views here.
+def session_demo(request):
+    """演示session的读写"""
+    # 设置session
+    # 为什么session需要通过request对象去设置或读取: 因为session依赖于cookie
+    request.session['name'] = 'bryant'
+    # 读取
+    # 当我们进行设置session时会生成一个sessionid, 然后通过response对象设置到cookie并保存到浏览器上
+    # 当我们要读取session时需要通过请求对象带过来的cookie中的sessionid才能取到这条session记录,在通过name键取到对应的value
+    print(request.session['name'])
+    print(request.session.get('name'))
+
+    return HttpResponse('session_demo')
+
+
 def cookie_demo(request):
     """演示cookie操作"""
     response = HttpResponse("cookie_demo")
