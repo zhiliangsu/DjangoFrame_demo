@@ -1,10 +1,19 @@
 import json
 
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 
 
 # Create your views here.
+
+def json_response_demo(request):
+    """演示响应json数据"""
+    # JSON字典中的引号必须是双引号
+    # json_dict = {"name": "curry", "age": 18}
+    json_list = [{"name": "curry", "age": 18}, {"name": "curry", "age": 18}]
+    # 如果用JsonResponse响应的不是一个字典,需要设置safe=False
+    return JsonResponse(json_list, safe=False)
+
 
 def response_demo(request):
     """演示响应对象的基本操作"""
@@ -14,6 +23,7 @@ def response_demo(request):
     # return HttpResponse(content="hello", content_type='text/plain', status=300)
     response = HttpResponse("python")
     response['Test'] = 'how are you'  # 自定义响应头
+    # HttpResponseRedirect
     return response
 
 
