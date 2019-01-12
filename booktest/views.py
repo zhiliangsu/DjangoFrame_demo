@@ -154,3 +154,18 @@ BookInfo.objects.all().order_by('bread')  # 默认升序
 BookInfo.objects.all().order_by('-bread')  # 降序
 
 BookInfo.objects.aggregate(Sum('bread'))
+
+
+"""数据修改"""
+# book = BookInfo.objects.get(btitle='西游记')
+# book.btitle = '西游记<后传>'
+# book.save()
+
+# BookInfo.objects.filter(id=5).update(btitle='西游记<起源>')
+
+
+"""数据删除"""
+book = BookInfo.objects.get(id=5)
+book.delete()
+
+HeroInfo.objects.filter(id=18).delete()
