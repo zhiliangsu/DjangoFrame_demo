@@ -2,6 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from booktest.models import BookInfo, HeroInfo
+from django.db.models import F, Q
 
 # 新增一本书
 # book = BookInfo()
@@ -83,3 +84,27 @@ BookInfo.objects.filter(bpub_date__year=1980)
 
 # 9.查询1990年1月1日后发表的书籍
 BookInfo.objects.filter(bpub_date__gt='1990-1-1')
+
+
+"""
+F对象和Q对象
+    如果需要做两个字段进行比较就要用F --> F(属性名)
+    Q对象可以做逻辑运算符 and  or  not  可以做基本查询 也可以 or 或 not --> Q(属性名__运算符=值)
+"""
+# F对象
+# 1.查询阅读量大于评论量的书籍
+BookInfo.objects.filter(bread__gt=F('bcomment'))
+
+# 2.查询阅读量大于2倍评论量的书籍
+BookInfo.objects.filter(bread__gt=F('bcomment') * 2)
+
+# Q对象
+# BookInfo.objects.filter(bread__gt=20, id__lte=3)  # and表示两个条件都满足的菜肴
+# BookInfo.objects.filter(Q(bread__gt=20), Q(id__lte=3))
+# BookInfo.objects.filter(bread__gt=20).filter(id__lte=3)
+
+# 1.查询阅读量大于20，或编号小于3的图书
+BookInfo.objects.filter(Q(bread__gt=20) | Q(id__lt=3))  # or满足其中一个条件的就要
+
+# 2.查询编号不等于3的书籍
+BookInfo.objects.filter(~Q(id=3))
