@@ -47,8 +47,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # 如果子应用中需要用模型迁移建表,必修注册子应用
+    # 如果子应用中也使用了'模板'也需要注册
+    # 如果子应用中只和视图路由相关,那么子应用可以不注册
     'users.apps.UsersConfig',  # 注册子应用
     'request_response.apps.RequestResponseConfig',
+    'booktest.apps.BooktestConfig',
 ]
 
 # 中间件的配置项(类似于Flask中的请求勾子)
