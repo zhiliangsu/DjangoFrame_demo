@@ -127,3 +127,22 @@ BookInfo.objects.filter(~Q(id=3))
 # 2.多查一：查询编号为1的英雄出自的书籍
 # hero = HeroInfo.objects.get(id=1)
 # hero.hbook
+
+
+"""关联过滤/内联查询"""
+# 一查多: 查谁就是谁的模型类对象开头.objects.filter(外键名__属性名__运算符=值)
+# HeroInfo.objects.filter(hbook__btitle="天龙八部")
+"""
+在关联过滤查询时多的一方当条件时,只用写多的一方模型名小写就可以了,不用再加_set
+_set是在关联基本查询时,用一查多才需要用
+"""
+# 多查一: 用一这方的模型对象.objects.filter(多的那一方的模型名小写__属性名__运算符=值)
+# BookInfo.objects.filter(heroinfo__hcomment__contains='降龙')
+
+# 关联过滤查询
+# 1.多查一：查询书籍中人物的描述包含"降龙"的书籍
+BookInfo.objects.filter(heroinfo__hcomment__contains="降龙")
+
+# 2.一查多：查询书名为"天龙八部"的所有人物信息
+# HeroInfo.objects.filter(hbook__btitle__exact="天龙八部")
+HeroInfo.objects.filter(hbook__btitle="天龙八部")
