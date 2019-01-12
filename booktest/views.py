@@ -169,3 +169,6 @@ book = BookInfo.objects.get(id=5)
 book.delete()
 
 HeroInfo.objects.filter(id=18).delete()
+
+qs = BookInfo.objects.all()
+# qs1 = BookInfo.objects.all()
