@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from booktest.models import BookInfo, HeroInfo
-from django.db.models import F, Q
+from django.db.models import F, Q, Sum
 
 # 新增一本书
 # book = BookInfo()
@@ -146,3 +146,11 @@ BookInfo.objects.filter(heroinfo__hcomment__contains="降龙")
 # 2.一查多：查询书名为"天龙八部"的所有人物信息
 # HeroInfo.objects.filter(hbook__btitle__exact="天龙八部")
 HeroInfo.objects.filter(hbook__btitle="天龙八部")
+
+
+"""聚合函数和排序"""
+# 只能对QuerySet类型的东西进行排序
+BookInfo.objects.all().order_by('bread')  # 默认升序
+BookInfo.objects.all().order_by('-bread')  # 降序
+
+BookInfo.objects.aggregate(Sum('bread'))
