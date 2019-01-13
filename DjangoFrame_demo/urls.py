@@ -37,4 +37,7 @@ urlpatterns = [
 
     # 演示类视图
     url(r'^', include('classview.urls', namespace='classview')),
+
+    # book应用
+    url(r'^', include('booktest.urls', namespace='booktest')),
 ]
