@@ -13,12 +13,19 @@ class BookInfoAdmin(admin.ModelAdmin):
     # 底部操作选项框
     actions_on_bottom = True
 
-    list_display = ['id', 'btitle', 'bpub_date', 'bread', 'format_pub_date']
+    list_display = ['id', 'btitle', 'bread', 'format_pub_date']
 
 
 @admin.register(HeroInfo)
 class HeroInfoAdmin(admin.ModelAdmin):
-    pass
+
+    # list_per_page = 10
+
+    list_display = ['id', 'hname', 'hcomment', 'hgender', 'is_delete', 'hbook', 'book_read']
+
+    list_filter = ['hbook', 'hgender']  # 列表界面右边显示的过滤器
+
+    search_fields = ['id', 'hname']  # 顶部搜索框
 
 
 # 把要在admin界面中展示的模型添加/注册到admin站点

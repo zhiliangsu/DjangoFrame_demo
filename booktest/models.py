@@ -45,3 +45,10 @@ class HeroInfo(models.Model):
 
     def __str__(self):
         return self.hname
+
+    def book_read(self):
+        return self.hbook.bread
+
+    book_read.short_description = '图书阅读量'
+    book_read.admin_order_field = 'hbook__bread'
+
