@@ -48,6 +48,7 @@ class BookListView(View):
         json_str = json_str_bytes.decode()
         json_dict = json.loads(json_str)
 
+        # 除了自己的数据可以不用验证,其他人给的所有数据在使用之前必须校验
         # 2.把数据存储到表中
         book = BookInfo.objects.create(
             btitle=json_dict.get('btitle'),
@@ -66,7 +67,7 @@ class BookListView(View):
         }
 
         # 返回
-        return JsonResponse(book_dict)
+        return JsonResponse(book_dict, status=201)
 
 
 class BookDetailView(View):
@@ -100,7 +101,34 @@ class BookDetailView(View):
 
     def put(self, request, pk):
         """修改指定的某本书籍"""
-        pass
+        # 提取前端请求数据
+        json_str_bytes = request.body
+        json_str = json_str_bytes.decode()
+        json_dict = json.loads(json_str)
+        # 获取到要修改的模型对象
+        try:
+            book = BookInfo.objects.get(id=pk)
+        except BookInfo.DoesNotExist:
+            return HttpResponse({'message': 'pk不存在'}, status=404)
+
+        # 修改模型对象
+        book.btitle = json_dict.get('btitle')
+        book.bpub_date = json_dict.get('bpub_date')
+        book.save()
+
+        # 字典转换模型
+        book_dict = {
+            'id': book.id,
+            'btitle': book.btitle,
+            'bpub_date': book.bpub_date,
+            'bread': book.bread,
+            'bcomment': book.bcomment,
+            'is_delete': book.is_delete,
+            'image': book.image.url if book.image else ''
+        }
+
+        return JsonResponse(book_dict, status=200)
+
 
     def delete(self, request, pk):
         """删除指定的某本书籍"""
