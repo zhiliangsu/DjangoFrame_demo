@@ -65,8 +65,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    'middleware.my_middleware',  # 注册自定义中间件
-    'middleware.my_middleware2',
+    # 'middleware.my_middleware',  # 注册自定义中间件
+    # 'middleware.my_middleware2',
 ]
 
 # 工程路由入口

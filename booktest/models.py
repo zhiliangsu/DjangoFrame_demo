@@ -19,6 +19,12 @@ class BookInfo(models.Model):
         """定义每个数据对象的显示信息"""
         return self.btitle
 
+    def format_pub_date(self):  # 1990-1-1
+        return self.bpub_date.strftime('%Y-%m-%d')
+
+    format_pub_date.short_description = '发布日期'  # 修改方法名字在站点列表界面的显示名称
+    format_pub_date.admin_order_field = 'bpub_date'  # 指定此方法中的数据依据哪个字段进行排序
+
 
 # 定义英雄模型类HeroInfo
 class HeroInfo(models.Model):
