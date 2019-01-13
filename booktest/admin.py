@@ -13,7 +13,17 @@ class BookInfoAdmin(admin.ModelAdmin):
     # 底部操作选项框
     actions_on_bottom = True
 
-    list_display = ['id', 'btitle', 'bread', 'format_pub_date']
+    list_display = ['btitle', 'id', 'bread', 'format_pub_date']
+
+    # fields = ['btitle', 'bpub_date']  # 编辑界面可以修改字段
+
+    fieldsets = [
+        ['基础', {'fields': ['btitle', 'bpub_date']}],
+        ['高级', {
+            'fields': ['bread', 'bcomment'],
+            'classes': ['collapse']
+        }]
+    ]
 
 
 @admin.register(HeroInfo)
