@@ -1,5 +1,6 @@
 import json
 
+from django.forms import model_to_dict
 from django.views import View
 from django.http import HttpResponse, JsonResponse
 from .models import BookInfo, HeroInfo
@@ -73,7 +74,29 @@ class BookDetailView(View):
 
     def get(self, request, pk):
         """查询某本书籍"""
-        pass
+
+        try:
+            book = BookInfo.objects.get(id=pk)
+        except BookInfo.DoesNotExist:
+            return HttpResponse({'message': 'pk不存在'}, status=404)
+        # 查出指定pk的数据
+        # querySet如何转成字典对象?
+        # book = BookInfo.objects.filter(id=pk)
+        # if not book:
+        #     return HttpResponse({'message': 'pk不存在'}, status=404)
+
+        # 字典转换模型
+        book_dict = {
+            'id': book.id,
+            'btitle': book.btitle,
+            'bpub_date': book.bpub_date,
+            'bread': book.bread,
+            'bcomment': book.bcomment,
+            'is_delete': book.is_delete,
+            'image': book.image.url if book.image else ''
+        }
+        # 响应
+        return JsonResponse(book_dict)
 
     def put(self, request, pk):
         """修改指定的某本书籍"""
