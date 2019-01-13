@@ -27,7 +27,7 @@ class BookInfoAdmin(admin.ModelAdmin):
     # fields = ['btitle', 'bpub_date']  # 编辑界面可以修改字段
 
     fieldsets = [
-        ['基础', {'fields': ['btitle', 'bpub_date']}],
+        ['基础', {'fields': ['btitle', 'bpub_date', 'image']}],
         ['高级', {
             'fields': ['bread', 'bcomment'],
             'classes': ['collapse']
