@@ -1,3 +1,5 @@
+import json
+
 from django.views import View
 from django.http import HttpResponse, JsonResponse
 from .models import BookInfo, HeroInfo
@@ -40,7 +42,30 @@ class BookListView(View):
 
     def post(self, request):
         """新增一本书籍"""
-        pass
+        # 1.提取前端传入要新增的数据
+        json_str_bytes = request.body
+        json_str = json_str_bytes.decode()
+        json_dict = json.loads(json_str)
+
+        # 2.把数据存储到表中
+        book = BookInfo.objects.create(
+            btitle=json_dict.get('btitle'),
+            bpub_date=json_dict.get('bpub_date')
+        )
+
+        # 3.把模型转换成字典
+        book_dict = {
+            'id': book.id,
+            'btitle': book.btitle,
+            'bpub_date': book.bpub_date,
+            'bread': book.bread,
+            'bcomment': book.bcomment,
+            'is_delete': book.is_delete,
+            'image': book.image.url if book.image else ''
+        }
+
+        # 返回
+        return JsonResponse(book_dict)
 
 
 class BookDetailView(View):
