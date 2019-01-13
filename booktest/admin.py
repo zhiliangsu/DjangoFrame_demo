@@ -1,12 +1,21 @@
 from django.contrib import admin
 
 from .models import BookInfo, HeroInfo
+
+
 # Register your models here.
+
+
+class HeroInfoStackInline(admin.TabularInline):
+    # class HeroInfoStackInline(admin.StackedInline):
+    """关联显示数据"""
+    model = HeroInfo  # 关联查询那个模型的数据
+    # extra = 1  # 额外的编辑页面
+    extra = 2  # 额外的编辑页面
 
 
 # 定义模型站点管理类(管理模型数据在admin界面的展示)
 class BookInfoAdmin(admin.ModelAdmin):
-
     # 修改每页显示的数据条数
     list_per_page = 2
 
@@ -25,10 +34,11 @@ class BookInfoAdmin(admin.ModelAdmin):
         }]
     ]
 
+    inlines = [HeroInfoStackInline]  # 关联数据展示'一关联显示多'
+
 
 @admin.register(HeroInfo)
 class HeroInfoAdmin(admin.ModelAdmin):
-
     # list_per_page = 10
 
     list_display = ['id', 'hname', 'hcomment', 'hgender', 'is_delete', 'hbook', 'book_read']
