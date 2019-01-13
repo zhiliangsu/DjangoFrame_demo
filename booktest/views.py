@@ -1,5 +1,6 @@
 from django.views import View
 from django.http import HttpResponse, JsonResponse
+from .models import BookInfo, HeroInfo
 
 """
 GET     /books/         提供所有记录
@@ -17,7 +18,25 @@ class BookListView(View):
 
     def get(self, request):
         """查询所有书籍"""
-        pass
+        # 1.先把所有书籍查出来
+        books = BookInfo.objects.all()
+
+        # 2.把查询集中的模型对象转换成一个一个的字段
+        book_list = []
+        for book in books if books else []:
+            book_dict = {
+                'id': book.id,
+                'btitle': book.btitle,
+                'bpub_date': book.bpub_date,
+                'bread': book.bread,
+                'bcomment': book.bcomment,
+                'is_delete': book.is_delete,
+                'image': book.image.url if book.image else ''
+            }
+            book_list.append(book_dict)
+
+        # 注意返回的是一个字典,需要设置safe=True
+        return JsonResponse(book_list, safe=False)
 
     def post(self, request):
         """新增一本书籍"""
