@@ -129,7 +129,15 @@ class BookDetailView(View):
 
         return JsonResponse(book_dict, status=200)
 
-
     def delete(self, request, pk):
         """删除指定的某本书籍"""
-        pass
+        try:
+            book = BookInfo.objects.get(id=pk)
+        except BookInfo.DoesNotExist:
+            return HttpResponse({'message': 'pk不存在'}, status=404)
+
+        # 删除指定数据
+        book.delete()
+
+        # 响应
+        return HttpResponse(status=204)
