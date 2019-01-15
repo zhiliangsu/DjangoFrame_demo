@@ -65,3 +65,20 @@ class BookInfoSerializer(serializers.Serializer):
         instance.bcomment = validated_data.get('bcomment', instance.bcomment)
         instance.save()
         return instance
+
+
+class BookInfoModelSerializer(serializers.ModelSerializer):
+    """
+    ModelSerializer:
+        1.可以自动根据模型生成序列器中的字段
+        2.帮助我们实现了序列化器中的create和update
+    """
+    # heroinfo_set = HeroInfoSerializer(many=True)
+    class Meta:
+        model = BookInfo  # 将来自动生成序列化器字段时,字段从BookInfo模型中生成
+        fields = '__all__'  # 指定映射BookInfo模型中所有字段
+        # fields = ['id', 'btitle', 'bpub_date']  # 指定要映射的模型字段
+        # exclude = ['image']  # 除了指定的字段不需要其他全生成
+        extra_kwargs ={
+            'bread': {'min_value': 0, 'required': True}
+        }

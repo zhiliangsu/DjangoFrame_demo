@@ -44,17 +44,17 @@ from booktest.models import BookInfo, HeroInfo
     5>如果要把校验后的数据存储到(新增和修改)数据用序列化器对象.save()方法
 """
 
-data_dict = {
-    'btitle': '小三国django',
-    'bpub_date': '1990-11-11'
-}
-
-book = BookInfo.objects.get(id=11)
-
-# raise_exception=True 如果在执行is_valid时校验出错直接抛出异常
-s = BookInfoSerializer(instance=book, data=data_dict)
-s.is_valid(raise_exception=True)
-# s.validated_data
-# 在调用序列化器的save时如果instance参数也传递了,就会调用序列化器的update操作
-# 如果调用序列化器的save时只传递了data,那么就会调用序列化器的create方法
-s.save()  # 有可能是新增操作,也有可能是修改操作
+# data_dict = {
+#     'btitle': '小三国django',
+#     'bpub_date': '1990-11-11'
+# }
+#
+# book = BookInfo.objects.get(id=11)
+#
+# # raise_exception=True 如果在执行is_valid时校验出错直接抛出异常
+# s = BookInfoSerializer(instance=book, data=data_dict)
+# s.is_valid(raise_exception=True)
+# # s.validated_data
+# # 在调用序列化器的save时如果instance参数也传递了,就会调用序列化器的update操作
+# # 如果调用序列化器的save时只传递了data,那么就会调用序列化器的create方法
+# s.save()  # 有可能是新增操作,也有可能是修改操作
