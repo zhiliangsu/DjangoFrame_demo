@@ -19,4 +19,4 @@ class BookInfoSerializer(serializers.Serializer):
     bpub_date = serializers.DateField(label='发布日期', required=False)
     bread = serializers.IntegerField(label='阅读量', required=False)
     bcomment = serializers.IntegerField(label='评论量', required=False)
-    image = serializers.ImageField(label='图片', required=False)
+    # image = serializers.ImageField(label='图片', required=False)
