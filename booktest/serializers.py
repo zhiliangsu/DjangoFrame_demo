@@ -20,3 +20,20 @@ class BookInfoSerializer(serializers.Serializer):
     bread = serializers.IntegerField(label='阅读量', required=False)
     bcomment = serializers.IntegerField(label='评论量', required=False)
     # image = serializers.ImageField(label='图片', required=False)
+
+
+class HeroInfoSerializer(serializers.Serializer):
+    """英雄数据序列化器"""
+    GENDER_CHOICES = (
+        (0, 'female'),
+        (1, 'male')
+    )
+
+    id = serializers.IntegerField(label='ID', read_only=True)
+    hname = serializers.CharField(label='名字', max_length=20)
+    hgender = serializers.ChoiceField(choices=GENDER_CHOICES, label='性别', required=False)
+    hcomment = serializers.CharField(label='描述信息', max_length=200, required=False, allow_null=True)
+    # hbook = serializers.PrimaryKeyRelatedField(label='书籍', read_only=True)  # 只会序列化关联对象的主键
+    # hbook = serializers.PrimaryKeyRelatedField(label='书籍', queryset=BookInfo.objects.all())
+    # hbook = serializers.StringRelatedField(label='书籍')  # 序列化关联对象的__str__的返回值
+    hbook = BookInfoSerializer()  # 指定关联序列化器实例对象
