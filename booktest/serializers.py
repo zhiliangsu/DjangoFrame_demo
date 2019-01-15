@@ -37,4 +37,4 @@ class BookInfoSerializer(serializers.Serializer):
     bread = serializers.IntegerField(label='阅读量', required=False)
     bcomment = serializers.IntegerField(label='评论量', required=False)
     # image = serializers.ImageField(label='图片', required=False)
-    heroinfo_set = HeroInfoSerializer(many=True)
+    heroinfo_set = HeroInfoSerializer(many=True, read_only=True)
