@@ -45,10 +45,23 @@ class BookInfoSerializer(serializers.Serializer):
             raise serializers.ValidationError("图书不是关于Django的")
         return value
 
-    def validate(self, attrs):
-        """多个字段联合校验"""
-        bread = attrs['bread']
-        bcomment = attrs['bcomment']
-        if bread < bcomment:
-            raise serializers.ValidationError("阅读量小于评论量")
-        return attrs
+    # def validate(self, attrs):
+    #     """多个字段联合校验"""
+    #     bread = attrs['bread']
+    #     bcomment = attrs['bcomment']
+    #     if bread < bcomment:
+    #         raise serializers.ValidationError("阅读量小于评论量")
+    #     return attrs
+
+    def create(self, validated_data):
+        """新建"""
+        return BookInfo.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        """更新, instance为要更新的对象实例"""
+        instance.btitle = validated_data.get('btitle', instance.btitle)
+        instance.bpub_date = validated_data.get('bpub_date', instance.bpub_date)
+        instance.bread = validated_data.get('bread', instance.bread)
+        instance.bcomment = validated_data.get('bcomment', instance.bcomment)
+        instance.save()
+        return instance
