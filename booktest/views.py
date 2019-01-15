@@ -45,7 +45,7 @@ from booktest.models import BookInfo, HeroInfo
 
 data_dict = {
     'btitle': '小三国',
-    # 'bpub_date': '1990-11-11'
+    'bpub_date': '1990-11-11'
 }
 
 # raise_exception=True 如果在执行is_valid时校验出错直接抛出异常

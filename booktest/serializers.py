@@ -38,3 +38,17 @@ class BookInfoSerializer(serializers.Serializer):
     bcomment = serializers.IntegerField(label='评论量', required=False)
     # image = serializers.ImageField(label='图片', required=False)
     heroinfo_set = HeroInfoSerializer(many=True, read_only=True)
+
+    # 对某个字段追加额外的校验逻辑
+    def validate_btitle(self, value):
+        if 'django' not in value.lower():
+            raise serializers.ValidationError("图书不是关于Django的")
+        return value
+
+    def validate(self, attrs):
+        """多个字段联合校验"""
+        bread = attrs['bread']
+        bcomment = attrs['bcomment']
+        if bread < bcomment:
+            raise serializers.ValidationError("阅读量小于评论量")
+        return attrs
