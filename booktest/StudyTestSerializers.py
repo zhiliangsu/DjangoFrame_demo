@@ -4,12 +4,12 @@ from .models import BookInfo
 
 
 # 定义序列化器
-# class BookModelSerializer(serializers.ModelSerializer):
-#     """定义序列化器类"""
-#
-#     class Meta:
-#         model = BookInfo  # 将来序列化器中的字段从哪个模型中映射
-#         fields = '__all__'  # 映射模型中的哪些字段
+class BookModelSerializer(serializers.ModelSerializer):
+    """定义序列化器类"""
+
+    class Meta:
+        model = BookInfo  # 将来序列化器中的字段从哪个模型中映射
+        fields = '__all__'  # 映射模型中的哪些字段
 
 
 class HeroInfoSerializer(serializers.Serializer):
@@ -35,9 +35,9 @@ class BookInfoSerializer(serializers.Serializer):
     btitle = serializers.CharField(label='名称', max_length=20)
     bpub_date = serializers.DateField(label='发布日期', required=False)
     bread = serializers.IntegerField(label='阅读量', required=False)
-    bcomment = serializers.IntegerField(label='评论量', required=False, error_messages={'bcomment': '评论量不ok'})
+    bcomment = serializers.IntegerField(label='评论量', required=False)
     # image = serializers.ImageField(label='图片', required=False)
-    # heroinfo_set = HeroInfoSerializer(many=True, read_only=True)
+    heroinfo_set = HeroInfoSerializer(many=True, read_only=True)
 
     # 对某个字段追加额外的校验逻辑
     def validate_btitle(self, value):
