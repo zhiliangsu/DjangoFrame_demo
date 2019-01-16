@@ -18,6 +18,21 @@ class BookViewSet(ReadOnlyModelViewSet):
     queryset = BookInfo.objects.all()
     serializer_class = BookInfoSerializer
 
+    def latest(self, request):
+        """返回最新的图书信息"""
+
+        book = BookInfo.objects.latest('id')
+        serializer = BookInfoSerializer(book)
+        return Response(serializer.data)
+
+    def read(self, request, pk):
+        """修改图书的阅读量数据"""
+        book = self.get_object()
+        book.read = request.data.get('bread')
+        book.save()
+        serializer = BookInfoSerializer(book)
+        return Response(serializer.data)
+
 
 #  class BookViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
 #

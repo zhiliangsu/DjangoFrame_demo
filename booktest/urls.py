@@ -27,6 +27,9 @@ urlpatterns = [
     # 使用ReadOnlyModelViewSet视图集
     url(r'^books/$', views.BookViewSet.as_view({'get': 'list'})),
     url(r'^books/(?P<pk>\d+)/$', views.BookViewSet.as_view({'get': 'retrieve'})),
+    # 以下两个路由是额外追加的行为
+    url(r'^books/latest$', views.BookViewSet.as_view({'get': 'latest'})),
+    url(r'^books/(?P<pk>\d+)/read$', views.BookViewSet.as_view({'put': 'read'})),
 ]
 
 # router = DefaultRouter()  # 创建路由器对象
