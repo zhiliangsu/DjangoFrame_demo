@@ -9,6 +9,7 @@ from rest_framework.viewsets import ViewSet, ReadOnlyModelViewSet, GenericViewSe
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser, IsAuthenticatedOrReadOnly
+from rest_framework.filters import OrderingFilter
 
 from .models import BookInfo
 from .serializers import BookInfoSerializer
@@ -25,6 +26,11 @@ class BookViewSet(ReadOnlyModelViewSet):
 
     # 指定可以过滤的字段
     filter_fields = ['btitle', 'id']
+
+    # 指定过滤后端为排序
+    filter_backends = [OrderingFilter]
+    # 指定可以进行排序的字段
+    ordering_fields = ['id', 'bread', 'bpub_date']
 
     # methods参数表示装饰的行为将来接收什么请求
     # detail 是否详情视图,如果是详情视图就会为路径接上pk
