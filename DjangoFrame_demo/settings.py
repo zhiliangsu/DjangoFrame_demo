@@ -178,5 +178,14 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (  # 全部认证类配置,必须要配置权限使用
         'rest_framework.authentication.BasicAuthentication',   # 基本认证
         'rest_framework.authentication.SessionAuthentication',  # session认证
-    )
+    ),
+    # 限流配置
+    'DEFAULT_THROTTLE_CLASSES': (
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle'
+    ),
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '100/day',
+        'user': '1000/day'
+    }
 }
