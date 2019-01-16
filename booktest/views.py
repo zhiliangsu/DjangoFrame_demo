@@ -24,6 +24,26 @@ class BookListAPIView(GenericAPIView):
         # 3.响应
         return Response(serializer.data)
 
+
+class BookDetailAPIView(GenericAPIView):
+    """书籍的详情视图"""
+
+    # 指定查询集(指定数据的来源)
+    queryset = BookInfo.objects.all()
+    # 指定序列化类(将来的数据转换或校验通过哪个序列化器)
+    serializer_class = BookInfoSerializer
+
+    def get(self, request, pk):
+        """查询单一图书数据"""
+
+        # 1.获取单一模型对象
+        book = self.get_object()
+        # 2.获取序列化器对象
+        serializer = self.get_serializer(book)
+        # 3.响应
+        return Response(serializer.data)
+
+
 # class BookListAPIView(APIView):
 #     """使用APIView实现查询所有书籍接口"""
 #
