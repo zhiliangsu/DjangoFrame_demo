@@ -172,3 +172,11 @@ SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
+
+# REST_FRAMEWORK DRF配置项全部写在此变量
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (  # 全部认证类配置,必须要配置权限使用
+        'rest_framework.authentication.BasicAuthentication',   # 基本认证
+        'rest_framework.authentication.SessionAuthentication',  # session认证
+    )
+}

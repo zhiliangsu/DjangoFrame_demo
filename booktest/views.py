@@ -8,6 +8,7 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateAPIView, Re
 from rest_framework.viewsets import ViewSet, ReadOnlyModelViewSet, GenericViewSet
 from rest_framework import status
 from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser, IsAuthenticatedOrReadOnly
 
 from .models import BookInfo
 from .serializers import BookInfoSerializer
@@ -15,6 +16,9 @@ from .serializers import BookInfoSerializer
 
 class BookViewSet(ReadOnlyModelViewSet):
     """查询的视图集"""
+
+    # 指定视图访问的权限
+    permission_classes = [IsAdminUser]  # 只有登录用户才能访问此视图中的所有接口
 
     queryset = BookInfo.objects.all()
     serializer_class = BookInfoSerializer
