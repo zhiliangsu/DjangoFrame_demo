@@ -9,8 +9,12 @@ urlpatterns = [
 
     # 演示APIView
     # url(r'^books/$', views.BookListAPIView.as_view()),
-    # 演示GenericAPIView
+
+    # 演示GenericAPIView列表视图
     url(r'^books/$', views.BookListAPIView.as_view()),
+
+    # 演示GenericAPIView详情视图
+    url(r'^books/(?P<pk>\d+)/$', views.BookDetailAPIView.as_view()),
 ]
 
 # router = DefaultRouter()  # 创建路由器对象
