@@ -7,6 +7,7 @@ from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView,
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateAPIView, RetrieveDestroyAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.viewsets import ViewSet, ReadOnlyModelViewSet, GenericViewSet
 from rest_framework import status
+from rest_framework.decorators import action
 
 from .models import BookInfo
 from .serializers import BookInfoSerializer
@@ -18,6 +19,9 @@ class BookViewSet(ReadOnlyModelViewSet):
     queryset = BookInfo.objects.all()
     serializer_class = BookInfoSerializer
 
+    # methods参数表示装饰的行为将来接收什么请求
+    # detail 是否详情视图,如果是详情视图就会为路径接上pk
+    @action(methods=['get'], detail=False)
     def latest(self, request):
         """返回最新的图书信息"""
 
@@ -25,6 +29,7 @@ class BookViewSet(ReadOnlyModelViewSet):
         serializer = BookInfoSerializer(book)
         return Response(serializer.data)
 
+    @action(methods=['put'], detail=True)
     def read(self, request, pk):
         """修改图书的阅读量数据"""
         book = self.get_object()

@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from rest_framework.routers import DefaultRouter
+from rest_framework.routers import DefaultRouter, SimpleRouter
 
 from . import views
 
@@ -25,12 +25,18 @@ urlpatterns = [
     # url(r'^books/(?P<pk>\d+)/$', views.BookViewSet.as_view({'get': 'retrieve'})),
 
     # 使用ReadOnlyModelViewSet视图集
-    url(r'^books/$', views.BookViewSet.as_view({'get': 'list'})),
-    url(r'^books/(?P<pk>\d+)/$', views.BookViewSet.as_view({'get': 'retrieve'})),
-    # 以下两个路由是额外追加的行为
-    url(r'^books/latest$', views.BookViewSet.as_view({'get': 'latest'})),
-    url(r'^books/(?P<pk>\d+)/read$', views.BookViewSet.as_view({'put': 'read'})),
+    # url(r'^books/$', views.BookViewSet.as_view({'get': 'list'})),
+    # url(r'^books/(?P<pk>\d+)/$', views.BookViewSet.as_view({'get': 'retrieve'})),
+    # # 以下两个路由是额外追加的行为
+    # url(r'^books/latest$', views.BookViewSet.as_view({'get': 'latest'})),
+    # url(r'^books/(?P<pk>\d+)/read$', views.BookViewSet.as_view({'put': 'read'})),
 ]
+
+# 路由器只能配置视图集使用
+# SimpleRouter和DefaultRouter只有一个区别: DefaultRouter会多配置一个根路由
+router = SimpleRouter()
+router.register(r'books', views.BookViewSet)
+urlpatterns += router.urls
 
 # router = DefaultRouter()  # 创建路由器对象
 # router.register(r'books', views.BookAPIViewSet)
