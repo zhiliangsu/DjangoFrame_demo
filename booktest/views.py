@@ -5,29 +5,42 @@ from rest_framework.mixins import ListModelMixin, CreateModelMixin
 from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin
 from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateAPIView, RetrieveDestroyAPIView, RetrieveUpdateDestroyAPIView
-from rest_framework.viewsets import ViewSet
+from rest_framework.viewsets import ViewSet, ReadOnlyModelViewSet, GenericViewSet
 from rest_framework import status
 
 from .models import BookInfo
 from .serializers import BookInfoSerializer
 
 
-class BookViewSet(ViewSet):
-    """基本视图集"""
+class BookViewSet(ReadOnlyModelViewSet):
+    """查询的视图集"""
 
-    def list(self, request):
-        books = BookInfo.objects.all()
-        serializer = BookInfoSerializer(books, many=True)
-        return Response(serializer.data)
+    queryset = BookInfo.objects.all()
+    serializer_class = BookInfoSerializer
 
-    def retrieve(self, request, pk):
-        try:
-            book = BookInfo.objects.get(id=pk)
-        except BookInfo.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
 
-        serializer = BookInfoSerializer(book)
-        return Response(serializer.data)
+#  class BookViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
+#
+#     queryset = BookInfo.objects.all()
+#     serializer_class = BookInfoSerializer
+
+
+# class BookViewSet(ViewSet):
+#     """基本视图集"""
+#
+#     def list(self, request):
+#         books = BookInfo.objects.all()
+#         serializer = BookInfoSerializer(books, many=True)
+#         return Response(serializer.data)
+#
+#     def retrieve(self, request, pk):
+#         try:
+#             book = BookInfo.objects.get(id=pk)
+#         except BookInfo.DoesNotExist:
+#             return Response(status=status.HTTP_404_NOT_FOUND)
+#
+#         serializer = BookInfoSerializer(book)
+#         return Response(serializer.data)
 
 
 # class BookListAPIView(ListAPIView, CreateAPIView):

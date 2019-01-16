@@ -17,6 +17,14 @@ urlpatterns = [
     # url(r'^books/(?P<pk>\d+)/$', views.BookDetailAPIView.as_view()),
 
     # 使用ViewSet视图集
+    # url(r'^books/$', views.BookViewSet.as_view({'get': 'list'})),
+    # url(r'^books/(?P<pk>\d+)/$', views.BookViewSet.as_view({'get': 'retrieve'})),
+
+    # 使用GenericViewSet视图集
+    # url(r'^books/$', views.BookViewSet.as_view({'get': 'list'})),
+    # url(r'^books/(?P<pk>\d+)/$', views.BookViewSet.as_view({'get': 'retrieve'})),
+
+    # 使用ReadOnlyModelViewSet视图集
     url(r'^books/$', views.BookViewSet.as_view({'get': 'list'})),
     url(r'^books/(?P<pk>\d+)/$', views.BookViewSet.as_view({'get': 'retrieve'})),
 ]
