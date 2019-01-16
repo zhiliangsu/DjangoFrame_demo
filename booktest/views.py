@@ -1,13 +1,16 @@
 from rest_framework.generics import GenericAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, CreateModelMixin, UpdateModelMixin, DestroyModelMixin
+from rest_framework.mixins import ListModelMixin, CreateModelMixin
+from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin
+from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateAPIView, RetrieveDestroyAPIView, RetrieveUpdateDestroyAPIView
 
 from .models import BookInfo
 from .serializers import BookInfoSerializer
 
 
-class BookListAPIView(ListModelMixin, CreateModelMixin, GenericAPIView):
+class BookListAPIView(ListAPIView, CreateAPIView):
     """书籍的列表视图"""
 
     # 指定查询集(指定数据的来源)
@@ -15,15 +18,8 @@ class BookListAPIView(ListModelMixin, CreateModelMixin, GenericAPIView):
     # 指定序列化类(将来的数据转换或校验通过哪个序列化器)
     serializer_class = BookInfoSerializer
 
-    def get(self, request):
-        """获取所有图书"""
-        return self.list(request)
 
-    def post(self, request):
-        return self.create(request)
-
-
-class BookDetailAPIView(RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin, GenericAPIView):
+class BookDetailAPIView(RetrieveAPIView, UpdateAPIView, DestroyAPIView):
     """书籍的详情视图"""
 
     # 指定查询集(指定数据的来源)
@@ -31,15 +27,40 @@ class BookDetailAPIView(RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin,
     # 指定序列化类(将来的数据转换或校验通过哪个序列化器)
     serializer_class = BookInfoSerializer
 
-    def get(self, request, pk):
-        """查询单一图书数据"""
-        return self.retrieve(request)
 
-    def put(self, request, pk):
-        return self.update(request)
-
-    def delete(self, request, pk):
-        return self.destroy(request)
+# class BookListAPIView(ListModelMixin, CreateModelMixin, GenericAPIView):
+#     """书籍的列表视图"""
+#
+#     # 指定查询集(指定数据的来源)
+#     queryset = BookInfo.objects.all()
+#     # 指定序列化类(将来的数据转换或校验通过哪个序列化器)
+#     serializer_class = BookInfoSerializer
+#
+#     def get(self, request):
+#         """获取所有图书"""
+#         return self.list(request)
+#
+#     def post(self, request):
+#         return self.create(request)
+#
+#
+# class BookDetailAPIView(RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin, GenericAPIView):
+#     """书籍的详情视图"""
+#
+#     # 指定查询集(指定数据的来源)
+#     queryset = BookInfo.objects.all()
+#     # 指定序列化类(将来的数据转换或校验通过哪个序列化器)
+#     serializer_class = BookInfoSerializer
+#
+#     def get(self, request, pk):
+#         """查询单一图书数据"""
+#         return self.retrieve(request)
+#
+#     def put(self, request, pk):
+#         return self.update(request)
+#
+#     def delete(self, request, pk):
+#         return self.destroy(request)
 
 
 # class BookListAPIView(GenericAPIView):
