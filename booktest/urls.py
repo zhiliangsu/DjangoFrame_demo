@@ -11,10 +11,14 @@ urlpatterns = [
     # url(r'^books/$', views.BookListAPIView.as_view()),
 
     # 演示GenericAPIView列表视图
-    url(r'^books/$', views.BookListAPIView.as_view()),
+    # url(r'^books/$', views.BookListAPIView.as_view()),
+    #
+    # # 演示GenericAPIView详情视图
+    # url(r'^books/(?P<pk>\d+)/$', views.BookDetailAPIView.as_view()),
 
-    # 演示GenericAPIView详情视图
-    url(r'^books/(?P<pk>\d+)/$', views.BookDetailAPIView.as_view()),
+    # 使用ViewSet视图集
+    url(r'^books/$', views.BookViewSet.as_view({'get': 'list'})),
+    url(r'^books/(?P<pk>\d+)/$', views.BookViewSet.as_view({'get': 'retrieve'})),
 ]
 
 # router = DefaultRouter()  # 创建路由器对象

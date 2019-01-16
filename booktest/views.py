@@ -5,27 +5,47 @@ from rest_framework.mixins import ListModelMixin, CreateModelMixin
 from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin
 from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateAPIView, RetrieveDestroyAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.viewsets import ViewSet
+from rest_framework import status
 
 from .models import BookInfo
 from .serializers import BookInfoSerializer
 
 
-class BookListAPIView(ListAPIView, CreateAPIView):
-    """书籍的列表视图"""
+class BookViewSet(ViewSet):
+    """基本视图集"""
 
-    # 指定查询集(指定数据的来源)
-    queryset = BookInfo.objects.all()
-    # 指定序列化类(将来的数据转换或校验通过哪个序列化器)
-    serializer_class = BookInfoSerializer
+    def list(self, request):
+        books = BookInfo.objects.all()
+        serializer = BookInfoSerializer(books, many=True)
+        return Response(serializer.data)
+
+    def retrieve(self, request, pk):
+        try:
+            book = BookInfo.objects.get(id=pk)
+        except BookInfo.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        serializer = BookInfoSerializer(book)
+        return Response(serializer.data)
 
 
-class BookDetailAPIView(RetrieveAPIView, UpdateAPIView, DestroyAPIView):
-    """书籍的详情视图"""
-
-    # 指定查询集(指定数据的来源)
-    queryset = BookInfo.objects.all()
-    # 指定序列化类(将来的数据转换或校验通过哪个序列化器)
-    serializer_class = BookInfoSerializer
+# class BookListAPIView(ListAPIView, CreateAPIView):
+#     """书籍的列表视图"""
+#
+#     # 指定查询集(指定数据的来源)
+#     queryset = BookInfo.objects.all()
+#     # 指定序列化类(将来的数据转换或校验通过哪个序列化器)
+#     serializer_class = BookInfoSerializer
+#
+#
+# class BookDetailAPIView(RetrieveAPIView, UpdateAPIView, DestroyAPIView):
+#     """书籍的详情视图"""
+#
+#     # 指定查询集(指定数据的来源)
+#     queryset = BookInfo.objects.all()
+#     # 指定序列化类(将来的数据转换或校验通过哪个序列化器)
+#     serializer_class = BookInfoSerializer
 
 
 # class BookListAPIView(ListModelMixin, CreateModelMixin, GenericAPIView):
