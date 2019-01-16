@@ -8,6 +8,8 @@ urlpatterns = [
     # url(r'^books/(?P<pk>\d+)/$', views.BookDetailView.as_view(), name='detail_view'),  # 详情视图
 
     # 演示APIView
+    # url(r'^books/$', views.BookListAPIView.as_view()),
+    # 演示GenericAPIView
     url(r'^books/$', views.BookListAPIView.as_view()),
 ]
 
