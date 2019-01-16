@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',  # DRF
+    'django_filters',  # 需要注册应用
 
     # 如果子应用中需要用模型迁移建表,必修注册子应用
     # 如果子应用中也使用了'模板'也需要注册
@@ -187,5 +188,9 @@ REST_FRAMEWORK = {
     'DEFAULT_THROTTLE_RATES': {
         'anon': '100/day',
         'user': '1000/day'
-    }
+    },
+    # 指定过滤后端
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+    )
 }

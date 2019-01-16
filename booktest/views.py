@@ -23,6 +23,9 @@ class BookViewSet(ReadOnlyModelViewSet):
     queryset = BookInfo.objects.all()
     serializer_class = BookInfoSerializer
 
+    # 指定可以过滤的字段
+    filter_fields = ['btitle', 'id']
+
     # methods参数表示装饰的行为将来接收什么请求
     # detail 是否详情视图,如果是详情视图就会为路径接上pk
     @action(methods=['get'], detail=False)
