@@ -10,9 +10,18 @@ from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser, IsAuthenticatedOrReadOnly
 from rest_framework.filters import OrderingFilter
+from rest_framework.pagination import PageNumberPagination
 
 from .models import BookInfo
 from .serializers import BookInfoSerializer
+
+
+class StandardPageNumberPagination(PageNumberPagination):
+    """自定义分页类"""
+    page_size = 3  # 默认每页显示的数据条数
+    page_query_param = 'page'  # 前端获取分页时指定查询字符串的显示第几页的关键字,不写默认就是'page'
+    page_size_query_param = 'page_size'  # 让前端指定每页显示多少条的查询关键字,不知道默认是None
+    max_page_size = 6  # 最大每页显示数据条数
 
 
 class BookViewSet(ReadOnlyModelViewSet):
@@ -31,6 +40,9 @@ class BookViewSet(ReadOnlyModelViewSet):
     filter_backends = [OrderingFilter]
     # 指定可以进行排序的字段
     ordering_fields = ['id', 'bread', 'bpub_date']
+
+    # pagination_class = '指定分页的类'
+    pagination_class = StandardPageNumberPagination
 
     # methods参数表示装饰的行为将来接收什么请求
     # detail 是否详情视图,如果是详情视图就会为路径接上pk
