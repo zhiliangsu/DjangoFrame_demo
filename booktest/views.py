@@ -11,6 +11,7 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser, IsAuthenticatedOrReadOnly
 from rest_framework.filters import OrderingFilter
 from rest_framework.pagination import PageNumberPagination
+from django.db import DatabaseError
 
 from .models import BookInfo
 from .serializers import BookInfoSerializer
@@ -49,6 +50,7 @@ class BookViewSet(ReadOnlyModelViewSet):
     @action(methods=['get'], detail=False)
     def latest(self, request):
         """返回最新的图书信息"""
+        raise DatabaseError
 
         book = BookInfo.objects.latest('id')
         serializer = BookInfoSerializer(book)

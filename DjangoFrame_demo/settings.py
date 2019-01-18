@@ -192,5 +192,7 @@ REST_FRAMEWORK = {
     # 指定过滤后端
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
-    )
+    ),
+
+    'EXCEPTION_HANDLER': 'exception.exception_handler',  # 指定自定义捕获异常函数
 }
